@@ -4,7 +4,6 @@ import './color-row.css'
 const ColorRow = (props) => {
     console.log('initial', props.ans);
     const ans = props.ans || [];
-    // const handelClick (clolor)
     if (props.hidden) {
         return (
             <div className='color-row'>
