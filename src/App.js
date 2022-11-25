@@ -12,6 +12,7 @@ function App() {
   const [answersList, sestAnswersList] = useState([]);
   const [win, setWin] = useState(false);
   const [question, setQuestion] = useState([]);
+  const [stats , setStats] = useState ({cc: 0 , cr: 0}) ;  
 
   useEffect(() => {
     let tempQuestins = [];
@@ -20,7 +21,11 @@ function App() {
       tempQuestins.push(COLORS[index]);
     }
     setQuestion(tempQuestins);
-    // console.log(tempQuestins);
+    console.log(tempQuestins);
+    // console.log(win);
+    // console.log(stats);
+    // setWin (false) ;
+    // setStats ({cc : 0 , cr : 0}) ;
   }, [win])
 
   useEffect(() => {
@@ -34,7 +39,12 @@ function App() {
     sestAnswersList(list);
   }, [])
 
-  const updateAnsersList = (ans) => {
+  const handleSubmit = (ans) => {
+    const tempStats = (checkAnswer (ans)) ;
+    setStats (tempStats) ;
+    if (tempStats.cc === 4) {
+      setWin (true) ;
+    }
     sestAnswersList([ans, ...answersList]);
     sessionStorage.setItem('answersList', JSON.stringify(answersList));
     sessionStorage.setItem('currentAns', JSON.stringify([]));
@@ -49,15 +59,40 @@ function App() {
       const newAns = [...ans, color];
       sessionStorage.setItem('currentAns', JSON.stringify(newAns));
       setAns([...ans, color]);
-    } else { updateAnsersList([...ans, color]) }
+    } else { handleSubmit([...ans, color]) }
   }
 
+  const checkAnswer = (answer) => {
+    let cc = 0, cr = 0;
+
+    const map = {};
+    for (let i = 0; i < question.length; i++) {
+      if (!map[question[i]])
+        map[question[i]] = 0;
+      map[question[i]]++;
+    }
+
+    for (let i = 0; i < answer.length; i++) {
+      if (map[answer[i]]) {
+        cr += 1;
+        map[answer[i]]--;
+      }
+    }
+
+    for (let i = 0; i < answer.length; i++) {
+      if (question[i] === answer[i]) {
+        cc += 1;
+        cr--;
+      }
+    }
+    return { cc, cr }
+  }
 
   return (
     <div className="App">
       <Header steps={answersList.length} />
-      <Row question={true} ans={question} clear={false} />
-      <List answersList={answersList} />
+      <Row question={!win} ans={question} clear={false} />
+      <List answersList={answersList} stats ={stats}/>
       <Row ans={ans} clear={true} setAns={setAns} />
       <ColorRow colors={COLORS} handelClick={handelClick} />
     </div>
