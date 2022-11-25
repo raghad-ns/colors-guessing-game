@@ -5,6 +5,7 @@ import { COLORS } from './data/colors';
 import { useEffect, useState } from 'react';
 import Row from './components/row/row.component';
 import List from './components/list/list.component';
+import Header from './components/header/header.component';
 
 function App() {
   const [ans, setAns] = useState([]);
@@ -41,6 +42,7 @@ function App() {
 
   return (
     <div className="App">
+      <Header steps = {answersList.length}/>
       <List answersList = {answersList}/>
       <Row  ans={ans} clear={true} setAns = {setAns}  />
       <ColorRow colors={COLORS} handelClick={handelClick} />
