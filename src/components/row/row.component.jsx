@@ -11,21 +11,21 @@ const Row = (props) => {
         <div>
             <div className="row">
                 <div className='color-row'>
-                    {ans.length >= 1
-                        ? <button className='hidden' style={{ backgroundColor: ans[0] }}></button>
-                        : <button className='hidden' style={{ backgroundColor: '#999' }}></button>
+                    {ans.length >= 1 && !props.question
+                        ? <button style={{ backgroundColor: ans[0] }}></button>
+                        : <button style={{ backgroundColor: '#999' }}></button>
                     }
-                    {ans.length >= 2
-                        ? <button className='hidden' style={{ backgroundColor: ans[1] }}></button>
-                        : <button className='hidden' style={{ backgroundColor: '#999' }}></button>
+                    {ans.length >= 2 && !props.question
+                        ? <button style={{ backgroundColor: ans[1] }}></button>
+                        : <button style={{ backgroundColor: '#999' }}></button>
                     }
-                    {ans.length >= 3
-                        ? <button className='hidden' style={{ backgroundColor: ans[2] }}></button>
-                        : <button className='hidden' style={{ backgroundColor: '#999' }}></button>
+                    {ans.length >= 3 && !props.question
+                        ? <button style={{ backgroundColor: ans[2] }}></button>
+                        : <button style={{ backgroundColor: '#999' }}></button>
                     }
-                    {ans.length >= 4
-                        ? <button className='hidden' style={{ backgroundColor: ans[3] }}></button>
-                        : <button className='hidden' style={{ backgroundColor: '#999' }}></button>
+                    {ans.length >= 4 && !props.question
+                        ? <button style={{ backgroundColor: ans[3] }}></button>
+                        : <button style={{ backgroundColor: '#999' }}></button>
                     }
                     {
                         props.stats &&

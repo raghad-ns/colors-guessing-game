@@ -9,20 +9,36 @@ import Header from './components/header/header.component';
 
 function App() {
   const [ans, setAns] = useState([]);
-  const [answersList , sestAnswersList] = useState ([]) ;
+  const [answersList, sestAnswersList] = useState([]);
+  const [win, setWin] = useState(false);
+  const [question, setQuestion] = useState([]);
+
+  useEffect(() => {
+    let tempQuestins = [];
+    for (let i = 0; i < 4; i++) {
+      const index = (Math.floor(Math.random() * 10)) % COLORS.length;
+      tempQuestins.push(COLORS[index]);
+    }
+    setQuestion(tempQuestins);
+    // console.log(tempQuestins);
+  }, [win])
+
+  useEffect(() => {
+    sessionStorage.setItem('answersList', JSON.stringify(answersList));
+  }, [answersList])
 
   useEffect(() => {
     const currentAns = JSON.parse(sessionStorage.getItem('currentAns')) || [];
     setAns(currentAns);
-    const list = JSON.parse (sessionStorage.getItem ('answersList')) || [];
-    sestAnswersList (list) ;
+    const list = JSON.parse(sessionStorage.getItem('answersList')) || [];
+    sestAnswersList(list);
   }, [])
 
   const updateAnsersList = (ans) => {
-    sestAnswersList ([ans , ...answersList]) ;
-    sessionStorage.setItem ('answersList' , JSON.stringify (answersList)) ;
-    sessionStorage.setItem ('currentAns' , JSON.stringify ([])) ;
-    setAns (JSON.parse(sessionStorage.getItem('currentAns')) || []) ;
+    sestAnswersList([ans, ...answersList]);
+    sessionStorage.setItem('answersList', JSON.stringify(answersList));
+    sessionStorage.setItem('currentAns', JSON.stringify([]));
+    setAns(JSON.parse(sessionStorage.getItem('currentAns')) || []);
   }
   /**
    * 
@@ -30,21 +46,19 @@ function App() {
    */
   const handelClick = (color) => {
     if (ans.length < 3) {
-      const newAns = [...ans , color] ;
+      const newAns = [...ans, color];
       sessionStorage.setItem('currentAns', JSON.stringify(newAns));
       setAns([...ans, color]);
-    } else {updateAnsersList([...ans , color])}
+    } else { updateAnsersList([...ans, color]) }
   }
 
-  useEffect (() =>{
-    sessionStorage.setItem ('answersList' , JSON.stringify (answersList)) ;
-  } , [answersList])
 
   return (
     <div className="App">
-      <Header steps = {answersList.length}/>
-      <List answersList = {answersList}/>
-      <Row  ans={ans} clear={true} setAns = {setAns}  />
+      <Header steps={answersList.length} />
+      <Row question={true} ans={question} clear={false} />
+      <List answersList={answersList} />
+      <Row ans={ans} clear={true} setAns={setAns} />
       <ColorRow colors={COLORS} handelClick={handelClick} />
     </div>
   );

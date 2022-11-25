@@ -12,11 +12,6 @@
     width: 40px;
     height: 40px;
     border: none;
-    border-radius: 8px;
-}
-
-
-
-.color-row > button.hidden {
     border-radius: 20px;
+
 }
