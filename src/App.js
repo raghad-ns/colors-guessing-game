@@ -9,7 +9,7 @@ import Header from './components/header/header.component';
 
 function App() {
   const [ans, setAns] = useState([]);
-  const [answersList, sestAnswersList] = useState([]);
+  const [answersList, setAnswersList] = useState([]);
   const [win, setWin] = useState(false);
   const [question, setQuestion] = useState([]);
   const [stats , setStats] = useState ({cc: 0 , cr: 0}) ;  
@@ -22,10 +22,6 @@ function App() {
     }
     setQuestion(tempQuestins);
     console.log(tempQuestins);
-    // console.log(win);
-    // console.log(stats);
-    // setWin (false) ;
-    // setStats ({cc : 0 , cr : 0}) ;
   }, [win])
 
   useEffect(() => {
@@ -36,7 +32,7 @@ function App() {
     const currentAns = JSON.parse(sessionStorage.getItem('currentAns')) || [];
     setAns(currentAns);
     const list = JSON.parse(sessionStorage.getItem('answersList')) || [];
-    sestAnswersList(list);
+    setAnswersList(list);
   }, [])
 
   const handleSubmit = (ans) => {
@@ -45,11 +41,18 @@ function App() {
     if (tempStats.cc === 4) {
       setWin (true) ;
     }
-    sestAnswersList([ans, ...answersList]);
+    setAnswersList([ans, ...answersList]);
     sessionStorage.setItem('answersList', JSON.stringify(answersList));
     sessionStorage.setItem('currentAns', JSON.stringify([]));
     setAns(JSON.parse(sessionStorage.getItem('currentAns')) || []);
   }
+
+  const reset = () => {
+    setWin (false) ;
+    setStats ({cc : 0 , cr : 0}) ;
+    setAnswersList ([]);
+  }
+
   /**
    * 
    * @param {String} color 
@@ -90,7 +93,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header steps={answersList.length} />
+      <Header steps={answersList.length} win = {win} reset = {reset}/>
       <Row question={!win} ans={question} clear={false} />
       <List answersList={answersList} stats ={stats}/>
       <Row ans={ans} clear={true} setAns={setAns} />
