@@ -6,9 +6,12 @@
     text-align: center;
     border-radius: 10px;
     height: 20px;
+    position: absolute;
+    top: -5px;
+    left: 310px;
+}
+.row {
     position: relative;
-    top: -74px;
-    left: 153px;
 }
 .row > .color-row > .stats {
     display: flex;

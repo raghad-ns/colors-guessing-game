@@ -35,13 +35,13 @@ const Row = (props) => {
                         </div>
                     }
                 </div>
+                {
+                    props.clear &&
+                    <button className='clear-ans'
+                        onClick={clearAns}
+                    >X</button>
+                }
             </div>
-            {
-                props.clear &&
-                <button className='clear-ans'
-                    onClick={clearAns}
-                >X</button>
-            }
         </div>
     )
 }
