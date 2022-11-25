@@ -12,10 +12,14 @@ function App() {
     setAns(currentAns);
   }, [])
   
-
+  /**
+   * 
+   * @param {String} color 
+   */
   const handelClick = (color) => {
     if (ans.length < 4) {
-      sessionStorage.setItem('currentAns', JSON.stringify([...ans, color]));
+      const newAns = [...ans , color] ;
+      sessionStorage.setItem('currentAns', JSON.stringify(newAns));
       setAns([...ans, color]);
     }
     // else {
@@ -25,7 +29,7 @@ function App() {
 
   return (
     <div className="App">
-      <Row colors={COLORS} ans={ans} clear={true} setAns = {setAns} />
+      <Row colors={COLORS} ans={ans} clear={true} setAns = {setAns}  />
       <ColorRow colors={COLORS} hidden={false} handelClick={handelClick} />
     </div>
   );
