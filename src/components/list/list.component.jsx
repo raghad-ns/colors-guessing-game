@@ -5,7 +5,8 @@ import Row from '../row/row.component'
 const List = (props) => {
   return (
     <div className='list'>
-      {props.answersList.map ((answer , index) => <Row key = {index} ans = {answer} clear = {false} stats = {props.stats}/>)}
+      {props.answersList.map ((currentAnswer , index) => 
+        <Row key = {index} ans = {currentAnswer.answer} clear = {false} stats = {currentAnswer.stats}/> )}
     </div>
   )
 }

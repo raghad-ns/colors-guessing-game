@@ -12,7 +12,6 @@ function App() {
   const [answersList, setAnswersList] = useState([]);
   const [win, setWin] = useState(false);
   const [question, setQuestion] = useState([]);
-  const [stats , setStats] = useState ({cc: 0 , cr: 0}) ;  
 
   useEffect(() => {
     let tempQuestins = [];
@@ -37,11 +36,10 @@ function App() {
 
   const handleSubmit = (ans) => {
     const tempStats = (checkAnswer (ans)) ;
-    setStats (tempStats) ;
     if (tempStats.cc === 4) {
       setWin (true) ;
     }
-    setAnswersList([ans, ...answersList]);
+    setAnswersList([{answer: ans , stats: checkAnswer(ans)}, ...answersList]);
     sessionStorage.setItem('answersList', JSON.stringify(answersList));
     sessionStorage.setItem('currentAns', JSON.stringify([]));
     setAns(JSON.parse(sessionStorage.getItem('currentAns')) || []);
@@ -49,7 +47,6 @@ function App() {
 
   const reset = () => {
     setWin (false) ;
-    setStats ({cc : 0 , cr : 0}) ;
     setAnswersList ([]);
   }
 
@@ -95,7 +92,7 @@ function App() {
     <div className="App">
       <Header steps={answersList.length} win = {win} reset = {reset}/>
       <Row question={!win} ans={question} clear={false} />
-      <List answersList={answersList} stats ={stats}/>
+      <List answersList={answersList} />
       <Row ans={ans} clear={true} setAns={setAns} />
       <ColorRow colors={COLORS} handelClick={handelClick} />
     </div>
