@@ -14,6 +14,18 @@ function App() {
   const [question, setQuestion] = useState([]);
 
   useEffect(() => {
+    generateQuestion() ;
+    const currentAns = JSON.parse(sessionStorage.getItem('currentAns')) || [];
+    setAns(currentAns);
+    const list = JSON.parse(sessionStorage.getItem('answersList')) || [];
+    setAnswersList(list);
+  }, [])
+
+  useEffect(() => {
+    sessionStorage.setItem('answersList', JSON.stringify(answersList));
+  }, [answersList])
+
+  const generateQuestion = () => {
     let tempQuestins = [];
     for (let i = 0; i < 4; i++) {
       const index = (Math.floor(Math.random() * 10)) % COLORS.length;
@@ -21,18 +33,7 @@ function App() {
     }
     setQuestion(tempQuestins);
     console.log(tempQuestins);
-  }, [win])
-
-  useEffect(() => {
-    sessionStorage.setItem('answersList', JSON.stringify(answersList));
-  }, [answersList])
-
-  useEffect(() => {
-    const currentAns = JSON.parse(sessionStorage.getItem('currentAns')) || [];
-    setAns(currentAns);
-    const list = JSON.parse(sessionStorage.getItem('answersList')) || [];
-    setAnswersList(list);
-  }, [])
+  } 
 
   const handleSubmit = (ans) => {
     const tempStats = (checkAnswer (ans)) ;
@@ -43,11 +44,13 @@ function App() {
     sessionStorage.setItem('answersList', JSON.stringify(answersList));
     sessionStorage.setItem('currentAns', JSON.stringify([]));
     setAns(JSON.parse(sessionStorage.getItem('currentAns')) || []);
+    console.log(answersList.length);
   }
 
   const reset = () => {
     setWin (false) ;
     setAnswersList ([]);
+    generateQuestion();
   }
 
   /**
