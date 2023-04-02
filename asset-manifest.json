@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/colors-guessing-game/static/css/main.2c7edc7a.css",
+    "main.js": "/colors-guessing-game/static/js/main.d0b45df6.js",
+    "static/js/787.03340ee9.chunk.js": "/colors-guessing-game/static/js/787.03340ee9.chunk.js",
+    "index.html": "/colors-guessing-game/index.html",
+    "main.2c7edc7a.css.map": "/colors-guessing-game/static/css/main.2c7edc7a.css.map",
+    "main.d0b45df6.js.map": "/colors-guessing-game/static/js/main.d0b45df6.js.map",
+    "787.03340ee9.chunk.js.map": "/colors-guessing-game/static/js/787.03340ee9.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2c7edc7a.css",
+    "static/js/main.d0b45df6.js"
+  ]
+}
